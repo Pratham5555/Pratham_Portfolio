@@ -48,15 +48,15 @@ export function Skills() {
           <SectionHeader label="// skills" title="Tech I Work With" />
         </AnimatedSection>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-rows-[1fr_1fr] gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {skillGroups.map((group, i) => {
             const Icon = groupIcons[i];
             return (
-              <AnimatedSection key={group.title} delay={i * 0.08}>
+              <AnimatedSection key={group.title} delay={i * 0.08} className="h-full">
                 <motion.div
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
-                  className="group rounded-xl border border-border bg-card p-5 transition-colors duration-300 hover:border-border-hover hover:bg-card-hover"
+                  className="group h-full rounded-xl border border-border bg-card p-5 transition-colors duration-300 hover:border-border-hover hover:bg-card-hover"
                 >
                   <div className="mb-4 flex items-center gap-3">
                     <Icon size={20} className={iconColors[i]} />
