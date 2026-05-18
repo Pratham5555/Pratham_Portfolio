@@ -21,13 +21,13 @@ export function Projects() {
           <SectionHeader label="// projects" title="What I&apos;ve Built" />
         </AnimatedSection>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="flex flex-col gap-6">
           {projects.map((project, i) => (
-            <AnimatedSection key={project.slug} delay={i * 0.1} className={project.featured ? "md:col-span-2" : ""}>
+            <AnimatedSection key={project.slug} delay={i * 0.1}>
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
-                className="group relative h-full overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors duration-300 hover:border-violet/30 hover:bg-card-hover md:p-8"
+                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors duration-300 hover:border-violet/30 hover:bg-card-hover md:p-8"
               >
                 {/* Hover glow */}
                 <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-violet/5 to-cyan/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
