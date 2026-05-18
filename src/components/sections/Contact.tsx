@@ -44,24 +44,27 @@ export function Contact() {
             {socialLinks.map((link) => {
               const Icon = iconMap[link.icon];
               return (
-                <motion.a
+                <motion.div
                   key={link.label}
-                  href={link.href}
-                  target={link.icon !== "mail" ? "_blank" : undefined}
-                  rel={link.icon !== "mail" ? "noopener noreferrer" : undefined}
                   whileHover={{ y: -3 }}
                   transition={{ duration: 0.2 }}
-                  className="group flex items-center gap-3 rounded-xl border border-border bg-card px-5 py-3 transition-colors duration-200 hover:border-violet/30 hover:bg-card-hover"
-                  aria-label={link.label}
                 >
-                  <Icon
-                    size={20}
-                    className="text-muted transition-colors group-hover:text-violet-light"
-                  />
-                  <span className="font-mono text-sm text-muted transition-colors group-hover:text-foreground">
-                    {link.label}
-                  </span>
-                </motion.a>
+                  <a
+                    href={link.href}
+                    target={link.icon !== "mail" ? "_blank" : undefined}
+                    rel={link.icon !== "mail" ? "noopener noreferrer" : undefined}
+                    className="group flex items-center gap-3 rounded-xl border border-border bg-card px-5 py-3 transition-colors duration-200 hover:border-violet/30 hover:bg-card-hover"
+                    aria-label={link.label}
+                  >
+                    <Icon
+                      size={20}
+                      className="text-muted transition-colors group-hover:text-violet-light"
+                    />
+                    <span className="font-mono text-sm text-muted transition-colors group-hover:text-foreground">
+                      {link.label}
+                    </span>
+                  </a>
+                </motion.div>
               );
             })}
           </div>
