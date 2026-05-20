@@ -198,6 +198,14 @@ export function SoundToggle() {
         right: "calc(1.25rem + env(safe-area-inset-right, 0px))",
         width: 48,
         height: 48,
+        /*
+         * will-change promotes this to its own GPU compositing layer so the
+         * browser positions it independently of the main-thread scroll —
+         * eliminates the Android Chrome "fixed element floats during scroll" lag.
+         * NOTE: will-change alone is safe on iOS. Only an *applied* transform
+         * value (translateZ/translate3d) breaks iOS position:fixed behaviour.
+         */
+        willChange: "transform",
       }}
     >
       {/*
@@ -225,20 +233,19 @@ export function SoundToggle() {
         transition={{ duration: 0.5 }}
       />
 
-      {/* The actual button — absolute inset-0 so it never resizes the container */}
-      <motion.button
+      {/* The actual button — pure CSS interactions, no Framer Motion on the button
+          itself to avoid layout passes on mobile that cause micro-jank */}
+      <button
         onClick={toggle}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
         aria-label={isPlaying ? "Mute ambient sound" : "Play ambient sound"}
         title={isPlaying ? "Sound on — click to mute" : "Play ambient sound"}
-        className="absolute inset-0 flex items-center justify-center rounded-full border border-border bg-card shadow-lg shadow-black/40 backdrop-blur-sm transition-colors hover:border-violet/40 hover:bg-card-hover"
+        className="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full border border-border bg-card shadow-lg shadow-black/40 backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:border-violet/40 hover:bg-card-hover active:scale-90"
         style={{ touchAction: "manipulation" }}
       >
         <span className="relative z-10">
           {isPlaying ? <SoundOnIcon /> : <SoundOffIcon />}
         </span>
-      </motion.button>
+      </button>
     </div>
   );
 }
