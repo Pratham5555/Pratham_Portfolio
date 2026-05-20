@@ -182,8 +182,8 @@ export function SoundToggle() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      {/* Pulsing rings when sound is active */}
+    <div className="fixed bottom-6 right-6 z-50 h-12 w-12">
+      {/* Pulsing rings — absolutely positioned so they never affect container size */}
       <AnimatePresence>
         {isPlaying &&
           [0, 1, 2].map((i) => (
@@ -196,8 +196,9 @@ export function SoundToggle() {
                 duration: 2.8,
                 delay: i * 0.9,
                 repeat: Infinity,
-                ease: "easeOut",
+                ease: "easeOut" as const,
               }}
+              style={{ transformOrigin: "center" }}
             />
           ))}
       </AnimatePresence>
@@ -208,7 +209,7 @@ export function SoundToggle() {
         whileTap={{ scale: 0.92 }}
         aria-label={isPlaying ? "Mute ambient sound" : "Play ambient sound"}
         title={isPlaying ? "Sound on — click to mute" : "Play ambient sound"}
-        className="relative flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card shadow-lg shadow-black/40 backdrop-blur-sm transition-colors hover:border-violet/40 hover:bg-card-hover"
+        className="absolute inset-0 flex items-center justify-center rounded-full border border-border bg-card shadow-lg shadow-black/40 backdrop-blur-sm transition-colors hover:border-violet/40 hover:bg-card-hover"
       >
         {/* Inner glow when playing */}
         <AnimatePresence>
