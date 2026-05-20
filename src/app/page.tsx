@@ -5,6 +5,7 @@ import { About } from "@/components/sections/About";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { Contact } from "@/components/sections/Contact";
+import { SoundToggle } from "@/components/ui/SoundToggle";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <SoundToggle />
     </>
   );
 }
