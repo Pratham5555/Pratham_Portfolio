@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 // A-minor pentatonic: A4, C5, E5, G5, A5, C6
 const ARPEGGIO_NOTES = [440, 523.25, 659.25, 783.99, 880, 1046.5];
@@ -106,7 +106,7 @@ function startArpeggio(
       env.gain.linearRampToValueAtTime(0.038, nextTime + 0.05);
       env.gain.exponentialRampToValueAtTime(0.0001, nextTime + NOTE_SPACING * 0.88);
       osc.connect(env);
-      env.connect(delay); // feed through reverb tail
+      env.connect(delay);
       env.connect(master);
       osc.start(nextTime);
       osc.stop(nextTime + NOTE_SPACING);
@@ -182,53 +182,59 @@ export function SoundToggle() {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 h-12 w-12">
-      {/* Pulsing rings — absolutely positioned so they never affect container size */}
-      <AnimatePresence>
-        {isPlaying &&
-          [0, 1, 2].map((i) => (
-            <motion.span
-              key={i}
-              className="pointer-events-none absolute inset-0 rounded-full border border-violet/30"
-              initial={{ scale: 1, opacity: 0.7 }}
-              animate={{ scale: 2.8 + i * 0.6, opacity: 0 }}
-              transition={{
-                duration: 2.8,
-                delay: i * 0.9,
-                repeat: Infinity,
-                ease: "easeOut" as const,
-              }}
-              style={{ transformOrigin: "center" }}
-            />
-          ))}
-      </AnimatePresence>
+    /*
+     * Outer shell: fixed position, explicit pixel size so it NEVER
+     * recalculates from children. overflow-visible so rings paint
+     * outside without creating a scroll-trigger.
+     * Safe-area padding for iOS notches/home bars.
+     */
+    <div
+      className="fixed z-50"
+      style={{
+        bottom: "max(1.25rem, env(safe-area-inset-bottom, 1.25rem))",
+        right: "max(1.25rem, env(safe-area-inset-right, 1.25rem))",
+        width: 48,
+        height: 48,
+        /* Promote to its own GPU layer — prevents repaint jank */
+        willChange: "transform",
+        transform: "translateZ(0)",
+      }}
+    >
+      {/*
+       * Pulse rings: always in DOM (no AnimatePresence / no DOM
+       * insertion jank). Active state is toggled via CSS class so
+       * the browser handles the animation entirely on the compositor
+       * thread — zero JS involvement, zero layout impact.
+       * animation-delay staggers the three rings.
+       */}
+      {[0, 1, 2].map((i) => (
+        <span
+          key={i}
+          className={`sound-ring pointer-events-none absolute inset-0 rounded-full border border-violet/30${isPlaying ? " active" : ""}`}
+          style={{
+            animationDelay: `${i * 0.85}s`,
+            transformOrigin: "center center",
+          }}
+        />
+      ))}
 
+      {/* Inner glow overlay — always mounted, opacity toggled smoothly */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-violet/25 to-cyan/20"
+        animate={{ opacity: isPlaying ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+      />
+
+      {/* The actual button — absolute inset-0 so it never resizes the container */}
       <motion.button
         onClick={toggle}
-        whileHover={{ scale: 1.12 }}
-        whileTap={{ scale: 0.92 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
         aria-label={isPlaying ? "Mute ambient sound" : "Play ambient sound"}
         title={isPlaying ? "Sound on — click to mute" : "Play ambient sound"}
         className="absolute inset-0 flex items-center justify-center rounded-full border border-border bg-card shadow-lg shadow-black/40 backdrop-blur-sm transition-colors hover:border-violet/40 hover:bg-card-hover"
+        style={{ touchAction: "manipulation" }}
       >
-        {/* Inner glow when playing */}
-        <AnimatePresence>
-          {isPlaying && (
-            <motion.div
-              key="glow"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              exit={{ opacity: 0 }}
-              transition={{
-                duration: 2.2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute inset-0 rounded-full bg-gradient-to-br from-violet/25 to-cyan/20"
-            />
-          )}
-        </AnimatePresence>
-
         <span className="relative z-10">
           {isPlaying ? <SoundOnIcon /> : <SoundOffIcon />}
         </span>
@@ -252,7 +258,6 @@ function SoundOnIcon() {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      {/* Inner arc — pulses */}
       <motion.path
         d="M15.54 8.46a5 5 0 0 1 0 7.07"
         stroke="currentColor"
@@ -260,13 +265,8 @@ function SoundOnIcon() {
         strokeLinecap="round"
         fill="none"
         animate={{ opacity: [0.35, 1, 0.35] }}
-        transition={{
-          duration: 1.4,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" as const }}
       />
-      {/* Outer arc — pulses with offset */}
       <motion.path
         d="M19.07 4.93a10 10 0 0 1 0 14.14"
         stroke="currentColor"
@@ -274,12 +274,7 @@ function SoundOnIcon() {
         strokeLinecap="round"
         fill="none"
         animate={{ opacity: [0.35, 1, 0.35] }}
-        transition={{
-          duration: 1.4,
-          delay: 0.2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        transition={{ duration: 1.4, delay: 0.2, repeat: Infinity, ease: "easeInOut" as const }}
       />
     </svg>
   );
