@@ -184,20 +184,20 @@ export function SoundToggle() {
   return (
     /*
      * Outer shell: fixed position, explicit pixel size so it NEVER
-     * recalculates from children. overflow-visible so rings paint
-     * outside without creating a scroll-trigger.
-     * Safe-area padding for iOS notches/home bars.
+     * recalculates from children.
+     * NO transform/will-change here — on iOS Safari, applying any CSS
+     * transform to a position:fixed element makes it behave as
+     * position:absolute (scrolls with page). Keep it transform-free.
+     * bottom/right use env() safe-area so the button clears the iOS
+     * home indicator on notched phones.
      */
     <div
       className="fixed z-50"
       style={{
-        bottom: "max(1.25rem, env(safe-area-inset-bottom, 1.25rem))",
-        right: "max(1.25rem, env(safe-area-inset-right, 1.25rem))",
+        bottom: "calc(1.25rem + env(safe-area-inset-bottom, 0px))",
+        right: "calc(1.25rem + env(safe-area-inset-right, 0px))",
         width: 48,
         height: 48,
-        /* Promote to its own GPU layer — prevents repaint jank */
-        willChange: "transform",
-        transform: "translateZ(0)",
       }}
     >
       {/*

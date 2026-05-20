@@ -30,9 +30,12 @@ body {
   background-color: #030014;
   color: #f1f5f9;
   font-family: var(--font-sans), system-ui, sans-serif;
-  /* Prevents scrollbar appearance from shifting fixed elements */
-  scrollbar-gutter: stable;
-  overflow-x: clip;
+}
+
+/* Prevent horizontal scroll from blob/ring animations without breaking
+   position:fixed on iOS (overflow on body breaks iOS fixed positioning) */
+html {
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
