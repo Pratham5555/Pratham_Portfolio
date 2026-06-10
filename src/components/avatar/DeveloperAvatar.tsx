@@ -31,27 +31,27 @@ export function DeveloperAvatar({ className }: DeveloperAvatarProps) {
             <stop offset="100%" stopColor="#06b6d4" />
           </linearGradient>
           <linearGradient id="screen-glow" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.1" />
+            <stop offset="0%" stopColor="#7c3aed" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.08" />
           </linearGradient>
           <linearGradient id="desk-grad" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#1a1a2e" />
-            <stop offset="100%" stopColor="#16162a" />
+            <stop offset="0%" stopColor="#e2e0dc" />
+            <stop offset="100%" stopColor="#d9d6d0" />
           </linearGradient>
         </defs>
 
         {/* Desk */}
-        <rect x="60" y="280" width="280" height="12" rx="6" fill="url(#desk-grad)" stroke="#ffffff10" strokeWidth="1" />
-        <rect x="120" y="292" width="8" height="50" rx="2" fill="#1a1a2e" />
-        <rect x="272" y="292" width="8" height="50" rx="2" fill="#1a1a2e" />
+        <rect x="60" y="280" width="280" height="12" rx="6" fill="url(#desk-grad)" stroke="#00000008" strokeWidth="1" />
+        <rect x="120" y="292" width="8" height="50" rx="2" fill="#d4d1cc" />
+        <rect x="272" y="292" width="8" height="50" rx="2" fill="#d4d1cc" />
 
         {/* Laptop base */}
-        <rect x="110" y="258" width="180" height="22" rx="4" fill="#1e1e3a" stroke="#ffffff15" strokeWidth="1" />
-        <rect x="170" y="268" width="60" height="4" rx="2" fill="#ffffff08" />
+        <rect x="110" y="258" width="180" height="22" rx="4" fill="#c8c5c0" stroke="#00000010" strokeWidth="1" />
+        <rect x="170" y="268" width="60" height="4" rx="2" fill="#b5b2ad" />
 
         {/* Laptop screen */}
         <g>
-          <rect x="125" y="148" width="150" height="110" rx="6" fill="#0f0f2a" stroke="#ffffff15" strokeWidth="1.5" />
+          <rect x="125" y="148" width="150" height="110" rx="6" fill="#1a1a2e" stroke="#00000015" strokeWidth="1.5" />
           <rect x="133" y="156" width="134" height="94" rx="3" fill="url(#screen-glow)" />
 
           {/* Code lines on screen */}
@@ -131,13 +131,13 @@ export function DeveloperAvatar({ className }: DeveloperAvatarProps) {
 
         {/* Coffee mug */}
         <g>
-          <rect x="280" y="255" width="20" height="24" rx="3" fill="#2d1b69" stroke="#7c3aed40" strokeWidth="1" />
-          <path d="M300 262 C310 262, 310 272, 300 272" fill="none" stroke="#2d1b69" strokeWidth="2.5" />
+          <rect x="280" y="255" width="20" height="24" rx="3" fill="#7c3aed" stroke="#7c3aed20" strokeWidth="1" />
+          <path d="M300 262 C310 262, 310 272, 300 272" fill="none" stroke="#7c3aed" strokeWidth="2.5" />
           {/* Steam */}
           <motion.path
             d="M286 252 Q288 246 286 240"
             fill="none"
-            stroke="#94a3b850"
+            stroke="#7c3aed50"
             strokeWidth="1.5"
             strokeLinecap="round"
             animate={{ opacity: [0.3, 0.7, 0.3], y: [0, -3, 0] }}
@@ -146,7 +146,7 @@ export function DeveloperAvatar({ className }: DeveloperAvatarProps) {
           <motion.path
             d="M293 250 Q295 244 293 238"
             fill="none"
-            stroke="#94a3b850"
+            stroke="#7c3aed50"
             strokeWidth="1.5"
             strokeLinecap="round"
             animate={{ opacity: [0.5, 0.8, 0.5], y: [0, -4, 0] }}

@@ -46,7 +46,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "border-b border-border bg-background/80 backdrop-blur-xl"
+          ? "border-b border-white/40 bg-white/60 shadow-sm backdrop-blur-xl"
           : "bg-transparent"
       )}
     >
@@ -90,7 +90,7 @@ export function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-border bg-background/95 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-white/30 bg-white/70 backdrop-blur-xl lg:hidden">
           <div className="flex flex-col px-4 py-4">
             {navLinks.map((link) => (
               <a

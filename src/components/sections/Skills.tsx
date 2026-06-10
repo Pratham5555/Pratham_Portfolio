@@ -56,7 +56,7 @@ export function Skills() {
                 <motion.div
                   whileHover={{ y: -2 }}
                   transition={{ duration: 0.2 }}
-                  className="group h-full rounded-xl border border-border bg-card p-5 transition-colors duration-300 hover:border-border-hover hover:bg-card-hover"
+                  className="glass group h-full rounded-xl p-5 shadow-sm transition-all duration-300 hover:shadow-md hover:shadow-violet/5"
                 >
                   <div className="mb-4 flex items-center gap-3">
                     <Icon size={20} className={iconColors[i]} />
@@ -69,7 +69,7 @@ export function Skills() {
                     {group.skills.map((skill) => (
                       <span
                         key={skill}
-                        className={`rounded-full border border-border px-2.5 py-1 font-mono text-[11px] text-muted transition-colors duration-200 ${groupColors[i]}`}
+                        className={`rounded-full border border-black/6 bg-white/50 px-2.5 py-1 font-mono text-[11px] text-muted transition-colors duration-200 ${groupColors[i]}`}
                       >
                         {skill}
                       </span>

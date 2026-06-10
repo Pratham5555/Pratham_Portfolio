@@ -10,10 +10,13 @@ import { projects } from "@/data/projects";
 export function Projects() {
   return (
     <section id="projects" className="relative py-20 lg:py-28">
-      {/* Background accent */}
       <div
-        className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-cyan/5 blur-[120px]"
+        className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-cyan/10 blur-[120px]"
         style={{ animation: "blob-drift 12s ease-in-out infinite 1s" }}
+      />
+      <div
+        className="pointer-events-none absolute -left-20 bottom-1/4 h-[300px] w-[300px] rounded-full bg-violet/10 blur-[100px]"
+        style={{ animation: "blob-drift 14s ease-in-out infinite 3s" }}
       />
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
@@ -27,10 +30,9 @@ export function Projects() {
               <motion.div
                 whileHover={{ y: -4 }}
                 transition={{ duration: 0.2 }}
-                className="group relative overflow-hidden rounded-2xl border border-border bg-card p-6 transition-colors duration-300 hover:border-violet/30 hover:bg-card-hover md:p-8"
+                className="glass group relative overflow-hidden rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:shadow-violet/8 md:p-8"
               >
-                {/* Hover glow */}
-                <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-violet/5 to-cyan/5 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-violet/8 to-cyan/8 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 <div className="relative">
                   {/* Header */}
@@ -41,7 +43,7 @@ export function Projects() {
                           {project.title}
                         </h3>
                         {project.featured && (
-                          <span className="rounded-full bg-violet/10 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-violet-light">
+                          <span className="rounded-full bg-violet/12 px-2 py-0.5 font-mono text-[10px] font-medium uppercase tracking-wider text-violet">
                             Featured
                           </span>
                         )}
@@ -55,7 +57,7 @@ export function Projects() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 rounded-lg p-2 text-muted transition-colors hover:bg-card-hover hover:text-foreground"
+                      className="flex items-center gap-1 rounded-lg p-2 text-muted transition-colors hover:bg-white/50 hover:text-foreground"
                       aria-label={`View ${project.title} on GitHub`}
                     >
                       <GitHubIcon size={18} />

@@ -25,9 +25,8 @@ export function About() {
           {/* Photo */}
           <AnimatedSection className="flex justify-center lg:col-span-2">
             <div className="relative">
-              {/* Animated gradient ring */}
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-violet via-cyan to-violet opacity-60 blur-sm" style={{ animation: "gradient-ring 6s linear infinite" }} />
-              <div className="relative h-56 w-56 overflow-hidden rounded-full border-2 border-background md:h-64 md:w-64">
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-violet via-cyan to-violet opacity-50 blur-sm" style={{ animation: "gradient-ring 6s linear infinite" }} />
+              <div className="relative h-56 w-56 overflow-hidden rounded-full border-2 border-white md:h-64 md:w-64">
                 <Image
                   src="/dp.jpeg"
                   alt="Pratham Maheshwari"
@@ -67,7 +66,7 @@ export function About() {
               {interests.map((interest) => (
                 <span
                   key={interest}
-                  className="rounded-full border border-border bg-card px-3 py-1 font-mono text-xs text-muted transition-colors hover:border-violet/40 hover:text-violet-light"
+                  className="glass rounded-full px-3 py-1 font-mono text-xs text-muted transition-colors hover:text-violet-light hover:shadow-sm"
                 >
                   {interest}
                 </span>

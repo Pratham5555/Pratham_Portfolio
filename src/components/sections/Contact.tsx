@@ -21,9 +21,8 @@ const iconMap = {
 export function Contact() {
   return (
     <section id="contact" className="relative py-20 lg:py-28">
-      {/* Background accent */}
       <div
-        className="pointer-events-none absolute -bottom-20 left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-violet/8 blur-[120px]"
+        className="pointer-events-none absolute -bottom-20 left-1/2 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-violet/12 blur-[120px]"
         style={{ animation: "blob-drift 10s ease-in-out infinite" }}
       />
 
@@ -53,7 +52,7 @@ export function Contact() {
                     href={link.href}
                     target={link.icon !== "mail" ? "_blank" : undefined}
                     rel={link.icon !== "mail" ? "noopener noreferrer" : undefined}
-                    className="group flex items-center gap-3 rounded-xl border border-border bg-card px-5 py-3 transition-colors duration-200 hover:border-violet/30 hover:bg-card-hover"
+                    className="glass group flex items-center gap-3 rounded-xl px-5 py-3 shadow-sm transition-all duration-200 hover:shadow-md hover:shadow-violet/8"
                     aria-label={link.label}
                   >
                     <Icon
@@ -73,7 +72,7 @@ export function Contact() {
         <AnimatedSection delay={0.3}>
           <a
             href="mailto:pratham.maheshwari5@gmail.com"
-            className="inline-block rounded-full bg-gradient-to-r from-violet to-cyan px-8 py-3 font-mono text-sm font-medium text-white shadow-lg shadow-violet/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet/30"
+            className="inline-block rounded-full bg-gradient-to-r from-violet to-cyan px-8 py-3 font-mono text-sm font-medium text-white shadow-lg shadow-violet/15 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet/25"
           >
             Say Hello
           </a>

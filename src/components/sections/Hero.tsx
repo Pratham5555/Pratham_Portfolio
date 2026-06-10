@@ -21,14 +21,18 @@ const fadeUp = (delay: number) => ({
 export function Hero() {
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden pt-20">
-      {/* Background gradient blobs */}
+      {/* Background gradient blobs — soft pastel for light theme */}
       <div
-        className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-violet/15 blur-[120px]"
+        className="pointer-events-none absolute -right-40 -top-40 h-[500px] w-[500px] rounded-full bg-violet/20 blur-[120px]"
         style={{ animation: "blob-drift 8s ease-in-out infinite" }}
       />
       <div
-        className="pointer-events-none absolute -bottom-40 -left-40 h-[400px] w-[400px] rounded-full bg-cyan/10 blur-[120px]"
+        className="pointer-events-none absolute -bottom-40 -left-40 h-[400px] w-[400px] rounded-full bg-cyan/15 blur-[120px]"
         style={{ animation: "blob-drift 10s ease-in-out infinite 2s" }}
+      />
+      <div
+        className="pointer-events-none absolute left-1/2 top-1/3 h-[350px] w-[350px] -translate-x-1/2 rounded-full bg-amber/8 blur-[100px]"
+        style={{ animation: "blob-drift 12s ease-in-out infinite 4s" }}
       />
 
       <div className="mx-auto grid w-full max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
@@ -45,7 +49,7 @@ export function Hero() {
             {...fadeUp(0.2)}
             className="mb-4 font-heading text-4xl font-bold leading-tight md:text-5xl lg:text-6xl"
           >
-            <span className="bg-gradient-to-r from-foreground via-foreground to-muted bg-clip-text text-transparent">
+            <span className="text-foreground">
               Pratham
             </span>
             <br />
@@ -73,13 +77,13 @@ export function Hero() {
           <motion.div {...fadeUp(0.6)} className="flex flex-wrap gap-4">
             <a
               href="#projects"
-              className="rounded-full bg-gradient-to-r from-violet to-violet-light px-6 py-3 font-mono text-sm font-medium text-white shadow-lg shadow-violet/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet/30"
+              className="rounded-full bg-gradient-to-r from-violet to-violet-light px-6 py-3 font-mono text-sm font-medium text-white shadow-lg shadow-violet/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet/25"
             >
               View My Work
             </a>
             <a
               href="#contact"
-              className="rounded-full border border-border px-6 py-3 font-mono text-sm font-medium text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-violet/40 hover:text-foreground"
+              className="glass rounded-full px-6 py-3 font-mono text-sm font-medium text-muted transition-all duration-200 hover:-translate-y-0.5 hover:text-foreground hover:shadow-sm"
             >
               Get In Touch
             </a>

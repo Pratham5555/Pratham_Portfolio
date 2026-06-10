@@ -52,7 +52,7 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="min-h-screen bg-background text-foreground antialiased">
+      <body className="relative min-h-screen bg-background text-foreground antialiased">
         {children}
       </body>
     </html>

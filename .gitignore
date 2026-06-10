@@ -41,3 +41,5 @@ CLAUDE.md
 .agents
 .mcp.json
 skills-lock.json
+
+.vercel
