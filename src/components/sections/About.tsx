@@ -26,7 +26,7 @@ export function About() {
           <AnimatedSection className="flex justify-center lg:col-span-2">
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-violet via-rose to-violet opacity-50 blur-sm" style={{ animation: "gradient-ring 6s linear infinite" }} />
-              <div className="relative h-56 w-56 overflow-hidden rounded-full border-2 border-white md:h-64 md:w-64">
+              <div className="relative h-56 w-56 overflow-hidden rounded-full border-2 border-white dark:border-white/20 md:h-64 md:w-64">
                 <Image
                   src="/dp.jpeg"
                   alt="Pratham Maheshwari"

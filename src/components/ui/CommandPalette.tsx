@@ -15,6 +15,8 @@ import {
   LinkedInIcon,
   LeetCodeIcon,
   MailIcon,
+  SunIcon,
+  MoonIcon,
 } from "@/components/icons";
 import { SITE } from "@/lib/constants";
 
@@ -97,6 +99,7 @@ export function CommandPalette() {
   const [active, setActive] = useState(0);
   const [copied, setCopied] = useState<string | null>(null);
   const [soundOn, setSoundOn] = useState(false);
+  const [themeDark, setThemeDark] = useState(false);
   const [isMac, setIsMac] = useState(true);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -107,6 +110,7 @@ export function CommandPalette() {
   useEffect(() => {
     setMounted(true);
     setIsMac(/mac|iphone|ipad|ipod/i.test(navigator.platform || navigator.userAgent));
+    setThemeDark(document.documentElement.classList.contains("dark"));
   }, []);
 
   /* Track ambient-sound state broadcast by <AmbientSound /> */
@@ -117,6 +121,16 @@ export function CommandPalette() {
     };
     window.addEventListener("portfolio:sound-state", onState);
     return () => window.removeEventListener("portfolio:sound-state", onState);
+  }, []);
+
+  /* Track theme state broadcast by <ThemeToggle /> */
+  useEffect(() => {
+    const onTheme = (e: Event) => {
+      const detail = (e as CustomEvent<{ dark: boolean }>).detail;
+      if (detail) setThemeDark(detail.dark);
+    };
+    window.addEventListener("portfolio:theme-state", onTheme);
+    return () => window.removeEventListener("portfolio:theme-state", onTheme);
   }, []);
 
   const close = useCallback(() => {
@@ -206,6 +220,15 @@ export function CommandPalette() {
       { id: "email", label: "Email Me", group: "Connect", icon: <MailIcon size={18} />, hint: "mailto", keywords: "mail write hello reach", run: () => { close(); window.location.href = `mailto:${SITE.email}`; } },
       // Actions
       {
+        id: "theme",
+        label: themeDark ? "Switch to Light Mode" : "Switch to Dark Mode",
+        group: "Actions",
+        icon: themeDark ? <SunIcon size={18} /> : <MoonIcon size={18} />,
+        hint: themeDark ? "dark" : "light",
+        keywords: "theme dark light mode appearance color",
+        run: () => { close(); window.dispatchEvent(new Event("portfolio:toggle-theme")); },
+      },
+      {
         id: "sound",
         label: soundOn ? "Stop Ambient Synthwave" : "Play Ambient Synthwave",
         group: "Actions",
@@ -233,7 +256,7 @@ export function CommandPalette() {
         run: () => copy(typeof window !== "undefined" ? window.location.href : SITE.url, "copy-link"),
       },
     ];
-  }, [go, close, openLink, copy, copied, soundOn]);
+  }, [go, close, openLink, copy, copied, soundOn, themeDark]);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -332,13 +355,13 @@ export function CommandPalette() {
             animate={reduceMotion ? { opacity: 1 } : { opacity: 1, y: 0, scale: 1 }}
             exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -8, scale: 0.98 }}
             transition={{ duration: reduceMotion ? 0 : 0.18, ease: "easeOut" }}
-            className="glass-strong relative w-full max-w-xl overflow-hidden rounded-2xl shadow-2xl shadow-violet/10 ring-1 ring-white/40"
+            className="glass-strong relative w-full max-w-xl overflow-hidden rounded-2xl shadow-2xl shadow-violet/10 ring-1 ring-white/40 dark:ring-white/10"
           >
             {/* Top accent line */}
             <div className="h-0.5 w-full bg-gradient-to-r from-violet via-rose to-violet" />
 
             {/* Search row */}
-            <div className="flex items-center gap-3 border-b border-black/5 px-4 py-3.5">
+            <div className="flex items-center gap-3 border-b border-black/5 px-4 py-3.5 dark:border-white/10">
               <SearchIcon className="shrink-0 text-violet" />
               <input
                 ref={inputRef}
@@ -350,7 +373,7 @@ export function CommandPalette() {
                 autoComplete="off"
                 spellCheck={false}
               />
-              <kbd className="hidden shrink-0 rounded-md border border-black/10 bg-white/60 px-1.5 py-0.5 font-mono text-[10px] text-muted sm:inline-block">
+              <kbd className="hidden shrink-0 rounded-md border border-black/10 bg-white/60 px-1.5 py-0.5 font-mono text-[10px] text-muted dark:border-white/15 dark:bg-white/10 sm:inline-block">
                 esc
               </kbd>
             </div>
@@ -378,7 +401,7 @@ export function CommandPalette() {
                           onMouseMove={() => setActive(idx)}
                           onClick={item.run}
                           className={`flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors duration-100 ${
-                            isActive ? "bg-violet/12 text-foreground" : "text-muted hover:bg-black/[0.03]"
+                            isActive ? "bg-violet/12 text-foreground" : "text-muted hover:bg-black/[0.03] dark:hover:bg-white/[0.05]"
                           }`}
                         >
                           <span className={isActive ? "text-violet" : "text-muted-dark"}>
@@ -404,7 +427,7 @@ export function CommandPalette() {
             </div>
 
             {/* Footer hint */}
-            <div className="flex items-center justify-between border-t border-black/5 px-4 py-2.5 font-mono text-[11px] text-muted-dark">
+            <div className="flex items-center justify-between border-t border-black/5 px-4 py-2.5 font-mono text-[11px] text-muted-dark dark:border-white/10">
               <span className="flex items-center gap-1.5">
                 <CommandGlyph size={12} className="text-violet" />
                 Command Palette
@@ -425,7 +448,7 @@ export function CommandPalette() {
 
 function Key({ children }: { children: ReactNode }) {
   return (
-    <kbd className="rounded border border-black/10 bg-white/60 px-1 py-0.5 font-mono text-[10px] text-muted">
+    <kbd className="rounded border border-black/10 bg-white/60 px-1 py-0.5 font-mono text-[10px] text-muted dark:border-white/15 dark:bg-white/10">
       {children}
     </kbd>
   );

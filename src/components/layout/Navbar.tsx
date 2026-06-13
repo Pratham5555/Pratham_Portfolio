@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { SearchIcon } from "@/components/icons";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -50,7 +51,7 @@ export function Navbar() {
       className={cn(
         "fixed top-0 z-50 w-full transition-all duration-300",
         scrolled
-          ? "border-b border-white/40 bg-white/60 shadow-sm backdrop-blur-xl"
+          ? "border-b border-border bg-surface/70 shadow-sm backdrop-blur-xl"
           : "bg-transparent"
       )}
     >
@@ -85,6 +86,8 @@ export function Navbar() {
             ))}
           </div>
 
+          <ThemeToggle />
+
           {/* Command palette trigger — the ⌘K power-tool. On mobile this is
              the primary navigation entry point (the palette lists every
              section plus links & actions), replacing a hamburger menu. */}
@@ -95,7 +98,7 @@ export function Navbar() {
           >
             <SearchIcon size={16} className="shrink-0" />
             <span className="hidden font-mono text-xs sm:inline">Quick nav</span>
-            <kbd className="hidden rounded border border-black/10 bg-white/50 px-1.5 py-0.5 font-mono text-[10px] sm:inline-block">
+            <kbd className="hidden rounded border border-black/10 bg-white/50 px-1.5 py-0.5 font-mono text-[10px] dark:border-white/15 dark:bg-white/10 sm:inline-block">
               {isMac ? "⌘K" : "Ctrl K"}
             </kbd>
           </button>

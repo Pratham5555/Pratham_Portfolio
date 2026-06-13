@@ -69,7 +69,7 @@ export function Skills() {
                     {group.skills.map((skill) => (
                       <span
                         key={skill}
-                        className={`rounded-full border border-black/6 bg-white/50 px-2.5 py-1 font-mono text-[11px] text-muted transition-colors duration-200 ${groupColors[i]}`}
+                        className={`rounded-full border border-black/6 bg-white/50 px-2.5 py-1 font-mono text-[11px] text-muted transition-colors duration-200 dark:border-white/10 dark:bg-white/5 ${groupColors[i]}`}
                       >
                         {skill}
                       </span>
