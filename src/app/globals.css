@@ -1,107 +1,43 @@
 @import "tailwindcss";
 
-/* Enable class-based dark mode (toggle a `.dark` class on <html>). */
-@custom-variant dark (&:where(.dark, .dark *));
-
-/*
- * Theme tokens reference swappable CSS variables so the whole palette can
- * flip between light ("Golden Hour") and dark ("Midnight Gold") by just
- * reassigning the vars under :root / .dark below.
- * NOTE: accent names (violet / violet-light / rose) are legacy slots that
- * now hold the gold scale — see :root for the mapping.
- */
 @theme inline {
-  --color-background: var(--bg);
-  --color-surface: var(--surface);
-  --color-card: var(--card);
-  --color-card-hover: var(--card-hover);
-  --color-border: var(--border-c);
-  --color-border-hover: var(--border-hover);
-  --color-foreground: var(--fg);
-  --color-muted: var(--muted);
-  --color-muted-dark: var(--muted-dark);
-  --color-violet: var(--accent);
-  --color-violet-light: var(--accent-light);
-  --color-rose: var(--accent-2);
-  --color-amber: var(--accent-3);
-  --color-glass: var(--glass);
-  --color-glass-border: var(--glass-brd);
+  /*
+   * "Golden Hour" — a warm light theme on soft cream.
+   * NOTE: the accent token names (violet / violet-light / rose) are legacy
+   * slots; they now hold the dark→light gold scale.
+   */
+  --color-background: #faf7ec;
+  --color-surface: #fffdf6;
+  --color-card: rgba(255, 255, 252, 0.55);
+  --color-card-hover: rgba(255, 255, 252, 0.78);
+  --color-border: rgba(70, 52, 0, 0.1);
+  --color-border-hover: #9a670044;
+  --color-foreground: #2a2412;
+  --color-muted: #786b4d;
+  --color-muted-dark: #a99a76;
+  --color-violet: #9a6700;
+  --color-violet-light: #b8810a;
+  --color-rose: #d39e00;
+  --color-amber: #e8a200;
+  --color-glass: rgba(255, 255, 252, 0.62);
+  --color-glass-border: rgba(255, 255, 255, 0.55);
 
   --font-sans: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
   --font-mono: var(--font-jetbrains-mono);
 }
 
-/* ---- Light theme: "Golden Hour" (warm cream + gold) ---- */
-:root {
-  --bg: #faf7ec;
-  --surface: #fffdf6;
-  --card: rgba(255, 255, 252, 0.55);
-  --card-hover: rgba(255, 255, 252, 0.78);
-  --border-c: rgba(70, 52, 0, 0.1);
-  --border-hover: #9a670044;
-  --fg: #2a2412;
-  --muted: #786b4d;
-  --muted-dark: #a99a76;
-  --accent: #9a6700;        /* dark mustard gold — primary text/accents */
-  --accent-light: #b8810a;  /* mid gold — active/hover */
-  --accent-2: #d39e00;      /* light gold — secondary / gradient tip */
-  --accent-3: #e8a200;      /* bright amber — warm tertiary / buttons */
-  --glass: rgba(255, 255, 252, 0.62);
-  --glass-brd: rgba(255, 255, 255, 0.55);
-
-  --glass-bg: rgba(255, 255, 255, 0.55);
-  --glass-bg-strong: rgba(255, 255, 255, 0.7);
-  --glass-border-1: rgba(255, 255, 255, 0.5);
-  --glass-border-2: rgba(255, 255, 255, 0.6);
-  --scroll-thumb: rgba(154, 103, 0, 0.19);
-  --scroll-thumb-hover: rgba(154, 103, 0, 0.31);
-  --sel-bg: rgba(211, 158, 0, 0.2);
-  --sel-fg: #2a2412;
-  --noise-opacity: 0.35;
-}
-
-/* ---- Dark theme: "Midnight Gold" (warm near-black + bright gold) ---- */
-.dark {
-  --bg: #16130b;
-  --surface: #20190f;
-  --card: rgba(46, 38, 20, 0.5);
-  --card-hover: rgba(58, 48, 26, 0.7);
-  --border-c: rgba(245, 232, 196, 0.1);
-  --border-hover: #f3c34c55;
-  --fg: #f1e9d5;
-  --muted: #b9aa88;
-  --muted-dark: #8c7e60;
-  --accent: #f3c34c;        /* bright gold — primary on dark */
-  --accent-light: #fcd763;
-  --accent-2: #e9b949;
-  --accent-3: #f0a500;
-  --glass: rgba(34, 28, 15, 0.62);
-  --glass-brd: rgba(245, 232, 196, 0.12);
-
-  --glass-bg: rgba(38, 31, 17, 0.55);
-  --glass-bg-strong: rgba(44, 36, 19, 0.72);
-  --glass-border-1: rgba(245, 232, 196, 0.1);
-  --glass-border-2: rgba(245, 232, 196, 0.14);
-  --scroll-thumb: rgba(243, 195, 76, 0.22);
-  --scroll-thumb-hover: rgba(243, 195, 76, 0.4);
-  --sel-bg: rgba(243, 195, 76, 0.25);
-  --sel-fg: #16130b;
-  --noise-opacity: 0.22;
-}
-
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--scroll-thumb) transparent;
+  scrollbar-color: #9a670040 transparent;
   overflow-x: hidden;
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--fg);
+  background-color: #faf7ec;
+  color: #2a2412;
   font-family: var(--font-sans), system-ui, sans-serif;
-  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Subtle noise grain overlay for depth */
@@ -111,7 +47,7 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: var(--noise-opacity);
+  opacity: 0.35;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
@@ -126,32 +62,32 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--scroll-thumb);
+  background: #9a670030;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--scroll-thumb-hover);
+  background: #9a670050;
 }
 
 ::selection {
-  background-color: var(--sel-bg);
-  color: var(--sel-fg);
+  background-color: #d39e0033;
+  color: #2a2412;
 }
 
 /* Glassmorphism utility */
 .glass {
-  background: var(--glass-bg);
+  background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--glass-border-1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .glass-strong {
-  background: var(--glass-bg-strong);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px) saturate(200%);
   -webkit-backdrop-filter: blur(20px) saturate(200%);
-  border: 1px solid var(--glass-border-2);
+  border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 @keyframes blob-drift {

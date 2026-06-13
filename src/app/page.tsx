@@ -5,8 +5,6 @@ import { About } from "@/components/sections/About";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { Contact } from "@/components/sections/Contact";
-import { AmbientSound } from "@/components/ui/AmbientSound";
-import { CommandPalette } from "@/components/ui/CommandPalette";
 
 export default function Home() {
   return (
@@ -20,8 +18,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <AmbientSound />
-      <CommandPalette />
     </>
   );
 }

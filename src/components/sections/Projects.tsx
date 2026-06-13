@@ -57,7 +57,7 @@ export function Projects() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1 rounded-lg p-2 text-muted transition-colors hover:bg-white/50 hover:text-foreground dark:hover:bg-white/10"
+                      className="flex items-center gap-1 rounded-lg p-2 text-muted transition-colors hover:bg-white/50 hover:text-foreground"
                       aria-label={`View ${project.title} on GitHub`}
                     >
                       <GitHubIcon size={18} />

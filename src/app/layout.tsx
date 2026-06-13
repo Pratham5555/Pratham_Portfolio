@@ -42,10 +42,6 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-// Runs before paint to apply the saved theme (or system preference) and
-// avoid a flash of the wrong theme. Falls back to light when no preference.
-const themeInit = `(function(){try{var t=localStorage.getItem('theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');}catch(e){}})();`;
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -54,11 +50,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
       className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <body className="relative min-h-screen bg-background text-foreground antialiased">
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         {children}
       </body>
     </html>
