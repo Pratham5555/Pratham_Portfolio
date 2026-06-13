@@ -20,7 +20,7 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Pratham Maheshwari | Full-Stack Developer",
   description:
-    "Portfolio of Pratham Maheshwari — CS undergrad at JIIT Noida. Full-stack developer building web apps, real-time systems, and mobile experiences with React, Node.js, and Python.",
+    "Portfolio of Pratham Maheshwari, CS undergrad at JIIT Noida. Full-stack developer building web apps, real-time systems, and mobile experiences with React, Node.js, and Python.",
   keywords: [
     "Pratham Maheshwari",
     "Full Stack Developer",

@@ -15,7 +15,7 @@ export const projects: Project[] = [
     title: "WasifyAi",
     date: "Apr 2026",
     backstory:
-      "In my hostel, there are colour-coded waste bins that nobody uses correctly. One day I watched someone toss a battery into the wet waste bin and thought — what if your phone camera could just tell you where something goes? Started as a weekend hack, ended up building a full mobile app.",
+      "In my hostel, there are colour-coded waste bins that nobody uses correctly. One day I watched someone toss a battery into the wet waste bin and thought, what if your phone camera could just tell you where something goes? Started as a weekend hack, ended up building a full mobile app.",
     description:
       "A React Native app that runs a YOLOv8n model on-device (exported to TensorFlow Lite) to classify waste into 12 categories via camera input. Python/FastAPI backend deployed on Railway with GitHub Actions CI/CD. Includes offline-first data sync and a gamification system with eco-points and a community leaderboard.",
     stack: [
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     title: "coWritter",
     date: "Jan 2026",
     backstory:
-      "Group assignments at college meant three people editing the same Google Doc with changes taking forever to sync. I got curious about how real-time collaboration actually works under the hood — WebSockets, conflict resolution, presence indicators. So I built my own version from scratch.",
+      "Group assignments at college meant three people editing the same Google Doc with changes taking forever to sync. I got curious about how real-time collaboration actually works under the hood: WebSockets, conflict resolution, presence indicators. So I built my own version from scratch.",
     description:
       "Real-time collaborative editor where multiple users edit documents concurrently with conflict-free sync through Socket.IO. Integrated Quill rich-text editor with a live presence system and JWT-based auth with email verification and session persistence.",
     stack: ["React", "Node.js", "Socket.IO", "MongoDB", "Quill", "JWT"],
@@ -73,7 +73,7 @@ export const projects: Project[] = [
     title: "Snapfeed API",
     date: "Jul 2024",
     backstory:
-      "Before I built full apps, I wanted to really understand how social platforms work at the API level — auth flows, file uploads, nested comments, the whole thing. Snapfeed was my deep dive into building a proper REST API from scratch.",
+      "Before I built full apps, I wanted to really understand how social platforms work at the API level: auth flows, file uploads, nested comments, the whole thing. Snapfeed was my deep dive into building a proper REST API from scratch.",
     description:
       "Social media REST API supporting user auth, profile management, text/image posts, likes, comments with nested replies, and email verification via Nodemailer with Gmail OAuth.",
     stack: ["Node.js", "Express", "MongoDB", "JWT", "Nodemailer", "REST API"],

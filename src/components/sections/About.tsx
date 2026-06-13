@@ -43,7 +43,7 @@ export function About() {
             <div className="space-y-4 text-base leading-relaxed text-muted">
               <p>
                 I&apos;m a final-year CS undergrad at JIIT Noida who got into programming
-                through competitive coding — started with C++ on LeetCode, got hooked on
+                through competitive coding. I started with C++ on LeetCode, got hooked on
                 the puzzle-solving, and eventually wanted to build things people actually
                 use. That&apos;s when I picked up JavaScript and dove into full-stack
                 development.
@@ -57,7 +57,7 @@ export function About() {
               </p>
               <p>
                 When I&apos;m not coding, I&apos;m usually out with my camera or scribbling
-                poetry. I believe the best software comes from people who notice details —
+                poetry. I believe the best software comes from people who notice details,
                 and photography taught me that.
               </p>
             </div>
