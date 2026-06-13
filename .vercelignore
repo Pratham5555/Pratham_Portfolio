@@ -1,0 +1,13 @@
+# Build deps & artifacts (Vercel installs/builds these itself)
+node_modules
+.next
+out
+
+# VCS / tooling
+.git
+.claude
+.agents
+
+# Stray local data that must never be uploaded
+Telegram Desktop
+*.mp4
