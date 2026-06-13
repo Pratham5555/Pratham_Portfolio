@@ -17,10 +17,11 @@ export const projects: Project[] = [
     backstory:
       "In my hostel, there are colour-coded waste bins that nobody uses correctly. One day I watched someone toss a battery into the wet waste bin and thought — what if your phone camera could just tell you where something goes? Started as a weekend hack, ended up building a full mobile app.",
     description:
-      "A React Native app that runs a TensorFlow Lite model on-device to classify waste into 12 categories via camera input. Python/FastAPI backend deployed on Railway with GitHub Actions CI/CD. Includes offline-first data sync and a gamification system with eco-points and a community leaderboard.",
+      "A React Native app that runs a YOLOv8n model on-device (exported to TensorFlow Lite) to classify waste into 12 categories via camera input. Python/FastAPI backend deployed on Railway with GitHub Actions CI/CD. Includes offline-first data sync and a gamification system with eco-points and a community leaderboard.",
     stack: [
       "React Native",
       "TypeScript",
+      "YOLOv8n",
       "TensorFlow Lite",
       "FastAPI",
       "Python",
@@ -28,7 +29,6 @@ export const projects: Project[] = [
       "GitHub Actions",
     ],
     github: "https://github.com/Pratham5555/WasifyAi",
-    featured: true,
   },
   {
     slug: "cowritter",

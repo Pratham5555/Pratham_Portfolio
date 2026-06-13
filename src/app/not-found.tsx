@@ -4,7 +4,7 @@ export default function NotFound() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-4">
       <h1 className="mb-4 font-heading text-6xl font-bold">
-        <span className="bg-gradient-to-r from-violet to-cyan bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-violet to-rose bg-clip-text text-transparent">
           404
         </span>
       </h1>

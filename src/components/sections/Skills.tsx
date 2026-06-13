@@ -24,18 +24,18 @@ const groupIcons = [
 
 const groupColors = [
   "group-hover:border-violet/40 group-hover:text-violet-light",
-  "group-hover:border-cyan/40 group-hover:text-cyan",
+  "group-hover:border-rose/40 group-hover:text-rose",
   "group-hover:border-violet/40 group-hover:text-violet-light",
-  "group-hover:border-cyan/40 group-hover:text-cyan",
+  "group-hover:border-rose/40 group-hover:text-rose",
   "group-hover:border-amber/40 group-hover:text-amber",
   "group-hover:border-violet/40 group-hover:text-violet-light",
 ];
 
 const iconColors = [
   "text-violet",
-  "text-cyan",
+  "text-rose",
   "text-violet-light",
-  "text-cyan",
+  "text-rose",
   "text-amber",
   "text-violet",
 ];

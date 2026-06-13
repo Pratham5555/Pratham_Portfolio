@@ -27,7 +27,7 @@ export function Hero() {
         style={{ animation: "blob-drift 8s ease-in-out infinite" }}
       />
       <div
-        className="pointer-events-none absolute -bottom-40 -left-40 h-[400px] w-[400px] rounded-full bg-cyan/15 blur-[120px]"
+        className="pointer-events-none absolute -bottom-40 -left-40 h-[400px] w-[400px] rounded-full bg-rose/15 blur-[120px]"
         style={{ animation: "blob-drift 10s ease-in-out infinite 2s" }}
       />
       <div
@@ -53,7 +53,7 @@ export function Hero() {
               Pratham
             </span>
             <br />
-            <span className="bg-gradient-to-r from-violet to-cyan bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet to-rose bg-clip-text text-transparent">
               Maheshwari
             </span>
           </motion.h1>
@@ -77,7 +77,7 @@ export function Hero() {
           <motion.div {...fadeUp(0.6)} className="flex flex-wrap gap-4">
             <a
               href="#projects"
-              className="rounded-full bg-gradient-to-r from-violet to-violet-light px-6 py-3 font-mono text-sm font-medium text-white shadow-lg shadow-violet/20 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet/25"
+              className="rounded-full bg-gradient-to-r from-amber to-[#f6cf4a] px-6 py-3 font-mono text-sm font-semibold text-[#2a2412] shadow-lg shadow-amber/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-amber/40"
             >
               View My Work
             </a>

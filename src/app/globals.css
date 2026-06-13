@@ -1,21 +1,31 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #f8f7f4;
-  --color-surface: #ffffff;
-  --color-card: rgba(255, 255, 255, 0.55);
-  --color-card-hover: rgba(255, 255, 255, 0.75);
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-border-hover: #7c3aed44;
-  --color-foreground: #1a1a2e;
-  --color-muted: #64748b;
-  --color-muted-dark: #94a3b8;
-  --color-violet: #7c3aed;
-  --color-violet-light: #8b5cf6;
-  --color-cyan: #06b6d4;
-  --color-amber: #f59e0b;
-  --color-glass: rgba(255, 255, 255, 0.6);
-  --color-glass-border: rgba(255, 255, 255, 0.5);
+  /*
+   * "Golden Hour" palette — a warm light theme on soft cream.
+   * NOTE: the accent token names (violet / violet-light / rose) are legacy
+   * slots; they now hold the dark→light YELLOW/GOLD scale so the whole
+   * accent system could be re-tuned from this one block:
+   *   violet       = dark yellow (mustard gold)  — primary text/accents
+   *   violet-light = mid gold                     — active/hover states
+   *   rose         = light gold                   — secondary / gradient tip
+   *   amber        = bright amber                 — warm tertiary / buttons
+   */
+  --color-background: #faf7ec;
+  --color-surface: #fffdf6;
+  --color-card: rgba(255, 255, 252, 0.55);
+  --color-card-hover: rgba(255, 255, 252, 0.78);
+  --color-border: rgba(70, 52, 0, 0.1);
+  --color-border-hover: #9a670044;
+  --color-foreground: #2a2412;
+  --color-muted: #786b4d;
+  --color-muted-dark: #a99a76;
+  --color-violet: #9a6700;
+  --color-violet-light: #b8810a;
+  --color-rose: #d39e00;
+  --color-amber: #e8a200;
+  --color-glass: rgba(255, 255, 252, 0.62);
+  --color-glass-border: rgba(255, 255, 255, 0.55);
 
   --font-sans: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
@@ -25,13 +35,13 @@
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: #7c3aed40 transparent;
+  scrollbar-color: #9a670040 transparent;
   overflow-x: hidden;
 }
 
 body {
-  background-color: #f8f7f4;
-  color: #1a1a2e;
+  background-color: #faf7ec;
+  color: #2a2412;
   font-family: var(--font-sans), system-ui, sans-serif;
 }
 
@@ -57,17 +67,17 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #7c3aed30;
+  background: #9a670030;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #7c3aed50;
+  background: #9a670050;
 }
 
 ::selection {
-  background-color: #7c3aed30;
-  color: #1a1a2e;
+  background-color: #d39e0033;
+  color: #2a2412;
 }
 
 @keyframes blob-drift {
@@ -94,24 +104,6 @@ body::before {
   }
 }
 
-@keyframes sound-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.65;
-  }
-  100% {
-    transform: scale(3.6);
-    opacity: 0;
-  }
-}
-
-.sound-ring {
-  animation: none;
-}
-.sound-ring.active {
-  animation: sound-ring 2.6s ease-out infinite;
-}
-
 /* Glassmorphism utility */
 .glass {
   background: rgba(255, 255, 255, 0.55);
@@ -125,16 +117,4 @@ body::before {
   backdrop-filter: blur(20px) saturate(200%);
   -webkit-backdrop-filter: blur(20px) saturate(200%);
   border: 1px solid rgba(255, 255, 255, 0.6);
-}
-
-/* Sound toggle responsive sizing */
-.sound-container {
-  width: 40px;
-  height: 40px;
-}
-@media (min-width: 640px) {
-  .sound-container {
-    width: 48px;
-    height: 48px;
-  }
 }

@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  // Hide the floating Next.js dev indicator ("N" badge) in development.
+  devIndicators: false,
 };
 
 export default nextConfig;

@@ -12,7 +12,7 @@ export function SectionHeader({ label, title }: SectionHeaderProps) {
       <h2 className="font-heading text-3xl font-bold text-foreground md:text-4xl">
         {title}
       </h2>
-      <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-violet to-cyan" />
+      <div className="mx-auto mt-4 h-1 w-20 rounded-full bg-gradient-to-r from-violet to-rose" />
     </div>
   );
 }

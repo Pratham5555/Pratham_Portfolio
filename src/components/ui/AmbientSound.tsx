@@ -1,33 +1,46 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useCallback, useState } from "react";
 
-const BPM = 124;
-const STEP = 60 / BPM / 4; // 16th-note duration
+/*
+ * Headless ambient-sound controller. There is intentionally NO visible
+ * button — playback is toggled exclusively from the command palette
+ * (the floating button was removed because it drifted on iOS scroll).
+ *
+ *  - Listens for the `portfolio:toggle-sound` event to start/stop.
+ *  - Broadcasts `portfolio:sound-state` so the palette label can sync.
+ *  - Defaults to OFF (browsers block autoplay anyway).
+ *
+ * Arrangement is a relaxed synthwave: moderate energy (steady kick + bass)
+ * but a sparse 8th-note lead instead of the previous busy 16th-note arp —
+ * fewer notes "in between", easier on the ears for ambient listening.
+ */
+
+const BPM = 112; // relaxed groove (was 124)
+const STEP = 60 / BPM / 4; // 16th-note grid
 
 // Chord progression: Am → F → C → G (each chord = 1 bar = 16 steps)
 const CHORDS: number[][] = [
-  [220, 261.63, 329.63],    // Am: A3 C4 E4
-  [174.61, 220, 261.63],    // F:  F3 A3 C4
-  [261.63, 329.63, 392],    // C:  C4 E4 G4
-  [196, 246.94, 293.66],    // G:  G3 B3 D4
+  [220, 261.63, 329.63], // Am: A3 C4 E4
+  [174.61, 220, 261.63], // F:  F3 A3 C4
+  [261.63, 329.63, 392], // C:  C4 E4 G4
+  [196, 246.94, 293.66], // G:  G3 B3 D4
 ];
-const BASS_ROOTS = [55, 43.65, 65.41, 49];  // A1 F1 C2 G1
+const BASS_ROOTS = [55, 43.65, 65.41, 49]; // A1 F1 C2 G1
 
 function buildSynthwave(ctx: AudioContext) {
   const master = ctx.createGain();
   master.gain.setValueAtTime(0, ctx.currentTime);
-  master.gain.linearRampToValueAtTime(0.38, ctx.currentTime + 2.5);
+  master.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 2.5);
   master.connect(ctx.destination);
 
-  // Stereo delay for width
+  // Stereo-ish delay for width
   const delay = ctx.createDelay(1);
   delay.delayTime.value = STEP * 3; // dotted-eighth feel
   const delayFb = ctx.createGain();
-  delayFb.gain.value = 0.3;
+  delayFb.gain.value = 0.28;
   const delayOut = ctx.createGain();
-  delayOut.gain.value = 0.2;
+  delayOut.gain.value = 0.18;
   delay.connect(delayFb);
   delayFb.connect(delay);
   delay.connect(delayOut);
@@ -36,16 +49,16 @@ function buildSynthwave(ctx: AudioContext) {
   // Lead filter — resonant lowpass for that classic synth sweep
   const leadFilter = ctx.createBiquadFilter();
   leadFilter.type = "lowpass";
-  leadFilter.frequency.value = 1800;
-  leadFilter.Q.value = 4;
+  leadFilter.frequency.value = 1600;
+  leadFilter.Q.value = 3.5;
   leadFilter.connect(master);
   leadFilter.connect(delay);
 
   // Filter LFO — slow sweep up and down
   const filterLfo = ctx.createOscillator();
   const filterLfoGain = ctx.createGain();
-  filterLfo.frequency.value = 0.15;
-  filterLfoGain.gain.value = 800;
+  filterLfo.frequency.value = 0.12;
+  filterLfoGain.gain.value = 700;
   filterLfo.connect(filterLfoGain);
   filterLfoGain.connect(leadFilter.frequency);
   filterLfo.start();
@@ -92,27 +105,29 @@ function startSynthwave(
       const beatInBar = step % 16;
       const chord = CHORDS[bar];
 
-      // ---- Lead arpeggio (16th notes, cycling through chord tones + octave) ----
-      const arpNotes = [...chord, chord[0] * 2];
-      const arpFreq = arpNotes[beatInBar % arpNotes.length];
+      // ---- Lead melody: sparse 8th notes (every other step) ----
+      if (beatInBar % 2 === 0) {
+        const arpNotes = [...chord, chord[0] * 2];
+        const arpFreq = arpNotes[(beatInBar / 2) % arpNotes.length];
 
-      const leadOsc = ctx.createOscillator();
-      const leadOsc2 = ctx.createOscillator();
-      const leadEnv = ctx.createGain();
-      leadOsc.type = "sawtooth";
-      leadOsc2.type = "sawtooth";
-      leadOsc.frequency.value = arpFreq;
-      leadOsc2.frequency.value = arpFreq * 1.005; // slight detune for width
-      leadEnv.gain.setValueAtTime(0, nextTime);
-      leadEnv.gain.linearRampToValueAtTime(0.04, nextTime + 0.01);
-      leadEnv.gain.exponentialRampToValueAtTime(0.001, nextTime + STEP * 0.85);
-      leadOsc.connect(leadEnv);
-      leadOsc2.connect(leadEnv);
-      leadEnv.connect(leadFilter);
-      leadOsc.start(nextTime);
-      leadOsc2.start(nextTime);
-      leadOsc.stop(nextTime + STEP);
-      leadOsc2.stop(nextTime + STEP);
+        const leadOsc = ctx.createOscillator();
+        const leadOsc2 = ctx.createOscillator();
+        const leadEnv = ctx.createGain();
+        leadOsc.type = "sawtooth";
+        leadOsc2.type = "sawtooth";
+        leadOsc.frequency.value = arpFreq;
+        leadOsc2.frequency.value = arpFreq * 1.005; // slight detune for width
+        leadEnv.gain.setValueAtTime(0, nextTime);
+        leadEnv.gain.linearRampToValueAtTime(0.045, nextTime + 0.015);
+        leadEnv.gain.exponentialRampToValueAtTime(0.001, nextTime + STEP * 1.7);
+        leadOsc.connect(leadEnv);
+        leadOsc2.connect(leadEnv);
+        leadEnv.connect(leadFilter);
+        leadOsc.start(nextTime);
+        leadOsc2.start(nextTime);
+        leadOsc.stop(nextTime + STEP * 2);
+        leadOsc2.stop(nextTime + STEP * 2);
+      }
 
       // ---- Bass (hits on beats 1, 5, 9, 13 — quarter notes) ----
       if (beatInBar % 4 === 0) {
@@ -161,7 +176,7 @@ function startSynthwave(
         });
       }
 
-      // ---- Kick ghost (sub-bass thump on beats 1, 9) ----
+      // ---- Kick (steady pulse on beats 1 & 9 — the "energy") ----
       if (beatInBar === 0 || beatInBar === 8) {
         const kickOsc = ctx.createOscillator();
         const kickEnv = ctx.createGain();
@@ -192,7 +207,7 @@ function startSynthwave(
   };
 }
 
-export function SoundToggle() {
+export function AmbientSound() {
   const [isPlaying, setIsPlaying] = useState(false);
   const ctxRef = useRef<AudioContext | null>(null);
   const masterRef = useRef<GainNode | null>(null);
@@ -235,13 +250,22 @@ export function SoundToggle() {
     setIsPlaying(false);
   }, []);
 
-  const toggle = useCallback(() => {
-    if (isPlaying) {
-      stop();
-    } else {
-      start();
-    }
+  // Toggle in response to the command palette.
+  useEffect(() => {
+    const handler = () => {
+      if (isPlaying) stop();
+      else start();
+    };
+    window.addEventListener("portfolio:toggle-sound", handler);
+    return () => window.removeEventListener("portfolio:toggle-sound", handler);
   }, [isPlaying, start, stop]);
+
+  // Broadcast play state so the palette shows the right label.
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("portfolio:sound-state", { detail: { playing: isPlaying } })
+    );
+  }, [isPlaying]);
 
   useEffect(() => {
     return () => {
@@ -251,133 +275,5 @@ export function SoundToggle() {
     };
   }, []);
 
-  return (
-    /*
-     * Outer shell: fixed position, explicit pixel size so it NEVER
-     * recalculates from children.
-     * NO transform/will-change here — on iOS Safari, applying any CSS
-     * transform to a position:fixed element makes it behave as
-     * position:absolute (scrolls with page). Keep it transform-free.
-     * bottom/right use env() safe-area so the button clears the iOS
-     * home indicator on notched phones.
-     */
-    <div
-      className="sound-container fixed z-50"
-      style={{
-        bottom: "calc(0.75rem + env(safe-area-inset-bottom, 0px))",
-        right: "calc(0.75rem + env(safe-area-inset-right, 0px))",
-        willChange: "transform",
-      }}
-    >
-      {/*
-       * Pulse rings: always in DOM (no AnimatePresence / no DOM
-       * insertion jank). Active state is toggled via CSS class so
-       * the browser handles the animation entirely on the compositor
-       * thread — zero JS involvement, zero layout impact.
-       * animation-delay staggers the three rings.
-       */}
-      {[0, 1, 2].map((i) => (
-        <span
-          key={i}
-          className={`sound-ring pointer-events-none absolute inset-0 rounded-full border border-violet/30${isPlaying ? " active" : ""}`}
-          style={{
-            animationDelay: `${i * 0.85}s`,
-            transformOrigin: "center center",
-          }}
-        />
-      ))}
-
-      <motion.div
-        className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-violet/20 to-cyan/15"
-        animate={{ opacity: isPlaying ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-      />
-
-      <button
-        onClick={toggle}
-        aria-label={isPlaying ? "Mute ambient sound" : "Play ambient sound"}
-        title={isPlaying ? "Sound on — click to mute" : "Play ambient sound"}
-        className="glass-strong absolute inset-0 flex cursor-pointer items-center justify-center rounded-full shadow-lg shadow-black/10 transition-all duration-200 hover:scale-110 hover:shadow-violet/15 active:scale-90"
-        style={{ touchAction: "manipulation" }}
-      >
-        <span className="relative z-10">
-          {isPlaying ? <SoundOnIcon /> : <SoundOffIcon />}
-        </span>
-      </button>
-    </div>
-  );
-}
-
-function SoundOnIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      className="text-violet"
-    >
-      <path
-        d="M11 5L6 9H2v6h4l5 4V5z"
-        fill="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <motion.path
-        d="M15.54 8.46a5 5 0 0 1 0 7.07"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        fill="none"
-        animate={{ opacity: [0.35, 1, 0.35] }}
-        transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" as const }}
-      />
-      <motion.path
-        d="M19.07 4.93a10 10 0 0 1 0 14.14"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        fill="none"
-        animate={{ opacity: [0.35, 1, 0.35] }}
-        transition={{ duration: 1.4, delay: 0.2, repeat: Infinity, ease: "easeInOut" as const }}
-      />
-    </svg>
-  );
-}
-
-function SoundOffIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      className="text-muted"
-    >
-      <path
-        d="M11 5L6 9H2v6h4l5 4V5z"
-        fill="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <line
-        x1="23"
-        y1="9"
-        x2="17"
-        y2="15"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-      <line
-        x1="17"
-        y1="9"
-        x2="23"
-        y2="15"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
+  return null;
 }

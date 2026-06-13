@@ -72,7 +72,7 @@ export function Contact() {
         <AnimatedSection delay={0.3}>
           <a
             href="mailto:pratham.maheshwari5@gmail.com"
-            className="inline-block rounded-full bg-gradient-to-r from-violet to-cyan px-8 py-3 font-mono text-sm font-medium text-white shadow-lg shadow-violet/15 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet/25"
+            className="inline-block rounded-full bg-gradient-to-r from-amber to-[#f6cf4a] px-8 py-3 font-mono text-sm font-semibold text-[#2a2412] shadow-lg shadow-amber/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-amber/40"
           >
             Say Hello
           </a>

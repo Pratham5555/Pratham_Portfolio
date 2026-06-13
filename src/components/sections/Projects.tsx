@@ -11,7 +11,7 @@ export function Projects() {
   return (
     <section id="projects" className="relative py-20 lg:py-28">
       <div
-        className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-cyan/10 blur-[120px]"
+        className="pointer-events-none absolute right-0 top-1/4 h-[400px] w-[400px] rounded-full bg-rose/10 blur-[120px]"
         style={{ animation: "blob-drift 12s ease-in-out infinite 1s" }}
       />
       <div
@@ -32,7 +32,7 @@ export function Projects() {
                 transition={{ duration: 0.2 }}
                 className="glass group relative overflow-hidden rounded-2xl p-6 shadow-sm transition-all duration-300 hover:shadow-md hover:shadow-violet/8 md:p-8"
               >
-                <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-violet/8 to-cyan/8 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="pointer-events-none absolute -inset-px rounded-2xl bg-gradient-to-r from-violet/8 to-rose/8 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 <div className="relative">
                   {/* Header */}

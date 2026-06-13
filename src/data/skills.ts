@@ -29,7 +29,7 @@ export const skillGroups: SkillGroup[] = [
   },
   {
     title: "AI / ML",
-    skills: ["Gemini API", "TensorFlow Lite", "Prompt Engineering"],
+    skills: ["YOLOv8n", "TensorFlow Lite", "Prompt Engineering"],
   },
   {
     title: "DevOps & Tools",
